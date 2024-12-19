@@ -46,30 +46,6 @@ Find the latest release of the .exe on the releases page https://github.com/TheI
    ```bash
    python src/script.py
    ```
-### Option 3: Run in Docker (Untested)
-
-Ensure Docker is installed and running on your system.
-
-Clone this repository:
-
-git clone https://github.com/YourUsername/DynamiX.git
-cd DynamiX
-
-Build the Docker image:
-
-docker build -t dynamix-plex .
-
-Run the container:
-
-docker run -d \
-    -p 8080:8080 \
-    -v /path/to/config:/app/config \
-    --name dynamix-container \
-    dynamix-plex
-
-Replace /path/to/config with the path to your local configuration files.
-
-Access the GUI at http://localhost:8080.
 
 ---
 
