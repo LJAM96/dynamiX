@@ -98,36 +98,43 @@ To access the Plex API, you need a valid token. Follow these steps to retrieve i
 2. Use the intuitive GUI to:
    - Configure Plex server details and dynamic pinning settings.
    - Manage exclusions and user exemptions.
+   - Add Seasonal Pinning Rules (V1.1+)
    - View activity logs in real-time.
 3. Start the automation process by clicking **"Run Main Function"** on the **Logs** tab.
 
 The running program:
 
-![image](https://github.com/user-attachments/assets/ba23b7e0-a80e-46ad-a249-5a4f9a989af0)
+![image](https://github.com/user-attachments/assets/1b07a6b4-261e-4992-a429-da4ce1087612)
+![image](https://github.com/user-attachments/assets/db79923e-207c-43f2-9946-09174cdede8c)
 
 Dynamic Exclusions list updated in the GUI:
 
-![image](https://github.com/user-attachments/assets/dc492e99-27dd-40c6-99d7-7cdc8677a49a)
+![image](https://github.com/user-attachments/assets/4e427525-67ae-4980-8ce5-17f29949ffa8)
 
 User-Set Exemptions:
 
-![image](https://github.com/user-attachments/assets/b8be6f61-5f2a-4275-9593-223ef4623047)
+![image](https://github.com/user-attachments/assets/6f8784e0-b25f-47e2-ac28-3ca1b1d16b1a)
 
 Server Configuration Tab:
 
-![image](https://github.com/user-attachments/assets/f943674f-f6c8-43e3-8094-31514a1eec58)
+![image](https://github.com/user-attachments/assets/32ba42ac-e067-441b-ac74-16babe8cb33b)
 
 Settings Tab:
 
-![image](https://github.com/user-attachments/assets/af8490ce-4bcb-469a-9839-cace22a4b524)
-![image](https://github.com/user-attachments/assets/a5de59cc-0866-4396-8032-2c84d59abd53)
+![image](https://github.com/user-attachments/assets/6d81562f-0151-43ae-9354-6cfbdbff3147)
+![image](https://github.com/user-attachments/assets/d98b9b42-3c26-4f81-84e6-6a698c0b5b96)
+![image](https://github.com/user-attachments/assets/2532c5cf-42c2-44ea-bf2f-7143a6659f89)
+
+Automatically Updates Home Screen, Shared Home, and/or library screen:
+![image](https://github.com/user-attachments/assets/27fbcac7-c905-47bd-adf3-f9606d6af19c)
+
 
 
 ### Tabs Overview
 | **Tab**              | **Description**                                                                       |
 |----------------------|---------------------------------------------------------------------------------------|
 | **Plex Server**      | Configure Plex server URL and API token. Display server name for confirmation.       |
-| **Settings**         | Configure libraries, time blocks, and pinning settings.                             |
+| **Settings**         | Configure libraries, time blocks, season blocks, and pinning settings.                             |
 | **Logs**             | View real-time activity logs for debugging and monitoring.                           |
 | **Dynamic Exclusions** | Manage collections that are temporarily excluded after being pinned.                |
 | **User Exemptions**  | Manually exempt specific collections from being pinned.                              |
