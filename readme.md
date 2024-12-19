@@ -1,6 +1,6 @@
 # 🎥 DynamiX - Plex Recommendations Manager
 
-**DynamiX** is an automation tool for dynamically managing Plex collections. It pins and unpins library collections based on configurable time blocks, ensuring fresh and relevant content is featured. This repository includes the Python script and its packaged `.exe` version for easier execution.
+**DynamiX** is an automation tool for dynamically managing Plex collections pinning. It pins and unpins library collections based on configurable time blocks, ensuring fresh and relevant content is featured. This repository includes the Python script and its packaged `.exe` version for easier execution. It is important to note that CURRENTLY this tool does not actually create collections, that feature will be available soon!
 
 ---
 
