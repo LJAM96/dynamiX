@@ -27,7 +27,7 @@ Find the latest release of the .exe on the releases page https://github.com/TheI
 
 ## 🛠️ **Installation**
 
-### Option 1: Run the `.exe` File *(Recommended for Non-Developers)*
+### Option 1: Run the `.exe` File (Windows Only Right Now) *(Recommended for Non-Developers)*
 1. Download the latest `script.exe` from the [Releases Page](https://github.com/TheImaginear/DynamiX/releases).
 2. Place it in a directory of your choice.
 3. Double-click the `script.exe` to launch the application.
@@ -46,6 +46,18 @@ Find the latest release of the .exe on the releases page https://github.com/TheI
    ```bash
    python src/script.py
    ```
+
+### Option 3: Offical Docker Image:
+1a. Grab the latest docker image:
+   ```bash
+   docker pull clharrel/dynamix:latest
+   ```
+1b. Grab it from the Repo Page:
+(https://hub.docker.com/repository/docker/clharrel/dynamix/general)
+
+2. Configure the config.json file with your preferences:
+I highly recommend using the windows application with GUI to generate your config files! The docker build is the exact functions of the application version without the gui and an automatic run on start!
+
 
 ---
 
