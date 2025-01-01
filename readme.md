@@ -133,6 +133,7 @@ Settings Tab:
 ![image](https://github.com/user-attachments/assets/6d81562f-0151-43ae-9354-6cfbdbff3147)
 ![image](https://github.com/user-attachments/assets/d98b9b42-3c26-4f81-84e6-6a698c0b5b96)
 ![image](https://github.com/user-attachments/assets/2532c5cf-42c2-44ea-bf2f-7143a6659f89)
+![image](https://github.com/user-attachments/assets/4276bca0-c1ed-45ff-8b1b-336f70b8a9d1)
 
 Pre-Roll Manager:
 
@@ -154,6 +155,7 @@ Automatically Updates Home Screen, Shared Home, and/or library screen:
 | **Logs**             | View real-time activity logs for debugging and monitoring.                           |
 | **Dynamic Exclusions** | Manage collections that are temporarily excluded after being pinned.                |
 | **User Exemptions**  | Manually exempt specific collections from being pinned.                              |
+| **Pre-Roll Manager**  | Handle Pre-Roll Videos by date blocks                                               |
 
 ---
 
