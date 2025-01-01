@@ -1,6 +1,6 @@
 # 🎥 DynamiX - Plex Recommendations Manager
 
-**DynamiX** is an automation tool for dynamically managing Plex collections pinning. It pins and unpins library collections based on configurable time blocks, ensuring fresh and relevant content is featured. This repository includes the Python script and its packaged `.exe` version for easier execution. It is important to note that CURRENTLY this tool does not actually create collections, that feature will be available soon!
+**DynamiX** is an automation tool for dynamically managing Plex collections pinning. It pins and unpins library collections based on configurable time blocks, ensuring fresh and relevant content is featured. As of 1.2.0, it is also able to rename files dynamically to handle seasonal pre-roll videos! This repository includes the Python script and its packaged `.exe` version for easier execution. It is important to note that CURRENTLY this tool does not actually create collections, that feature will be available soon!
 
 ---
 
@@ -13,6 +13,7 @@ Find the latest release of the .exe on the releases page https://github.com/TheI
 - **User Exemptions**: Allow manual exclusion of specific collections.
 - **GUI Control**: Includes an intuitive graphical interface for configuration and monitoring.
 - **Robust Logging**: Provides clear logs of actions and issues.
+- **Pre-Roll Seasonal Mngmt**: Allows the user to tell dynamiX where they store their pre-roll files and select seasonal blocks to play each one.
 
 ---
 
@@ -78,6 +79,13 @@ The following files are generated and updated dynamically:
 - `used_collections.json` - Tracks recently pinned collections to avoid immediate repeats.
 - `user_exemptions.json` - Maintains a list of collections manually exempted by the user.
 
+### Optional: Pre-Roll Manager
+If you would like to manage your existing pre-roll videos
+
+- In the plex settings, under extras, change the movie pre-roll video to the path to your folder, ending with PlexMainPreRoll.mp4 (Example path P:\Movie Roll\PlexMainPreRoll.mp4)
+- Configure the default pre-roll in the manager tab of dynamiX
+- Add Seasonal Blocks BEFORE RUNNING. Attempting to adjust an already selected video's time block will require either a manual file rename or deleting the block first and re-running.
+
 ---
 
 ## 💡 **Finding Your Plex Token**
@@ -99,6 +107,7 @@ To access the Plex API, you need a valid token. Follow these steps to retrieve i
    - Configure Plex server details and dynamic pinning settings.
    - Manage exclusions and user exemptions.
    - Add Seasonal Pinning Rules (V1.1+)
+   - Manage Pre-Roll Video (V1.2+)
    - View activity logs in real-time.
 3. Start the automation process by clicking **"Run Main Function"** on the **Logs** tab.
 
@@ -124,6 +133,13 @@ Settings Tab:
 ![image](https://github.com/user-attachments/assets/6d81562f-0151-43ae-9354-6cfbdbff3147)
 ![image](https://github.com/user-attachments/assets/d98b9b42-3c26-4f81-84e6-6a698c0b5b96)
 ![image](https://github.com/user-attachments/assets/2532c5cf-42c2-44ea-bf2f-7143a6659f89)
+
+Pre-Roll Manager:
+
+![image](https://github.com/user-attachments/assets/ad199c8e-b6c0-47c9-a546-8a8c3fb9a252)
+![image](https://github.com/user-attachments/assets/1532b287-7d24-41f2-859f-81e210df45dd)
+![image](https://github.com/user-attachments/assets/347da460-8ce7-4138-b825-eec17b0dc890)
+![image](https://github.com/user-attachments/assets/8549cfdd-e6f3-4ada-86a0-abd776a53b09)
 
 Automatically Updates Home Screen, Shared Home, and/or library screen:
 ![image](https://github.com/user-attachments/assets/27fbcac7-c905-47bd-adf3-f9606d6af19c)
