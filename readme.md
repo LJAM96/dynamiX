@@ -33,24 +33,23 @@ Pins and unpins library collections based on configurable time blocks, seasonal 
 ## Preview
 
 - All-New Dashboard
-![image](https://github.com/user-attachments/assets/1f252f03-b878-499f-b80b-d0b587319559)
+![image](https://github.com/user-attachments/assets/09e26112-dc6f-4c66-9738-35120c02d5b3)
 
 - Settings
-![image](https://github.com/user-attachments/assets/be7afe44-0824-4d40-9051-b76d1bed0e7b)
-![image](https://github.com/user-attachments/assets/22376e33-8a7d-4675-86f9-34c6984ca5d1)
-![image](https://github.com/user-attachments/assets/f4a3fd86-073c-42dc-91b7-85f4e9532a7c)
-![image](https://github.com/user-attachments/assets/b8f9e54b-8089-4775-a606-c2f8133e7102)
-![image](https://github.com/user-attachments/assets/0e4247d0-af64-48b7-9a34-ec7eb8300db4)
+![image](https://github.com/user-attachments/assets/712c278c-2032-471c-8da1-894aae9610df)
+![image](https://github.com/user-attachments/assets/50af3bb4-4ad0-46ed-87d4-fb3986307740)
+![image](https://github.com/user-attachments/assets/7c515248-a6c8-497a-94c4-ab3bdabbc626)
+![image](https://github.com/user-attachments/assets/ddb7d90c-ce8c-450b-a630-6b87f696864d)
+![image](https://github.com/user-attachments/assets/9988fdc5-46b2-4634-af6b-5b0fe00f6481)
 
 - Exclusions
-![image](https://github.com/user-attachments/assets/d0a4583c-f064-4f2b-a637-c689d50893d4)
+![image](https://github.com/user-attachments/assets/624e8718-5d4c-4f32-854c-082e13791412)
 
 - Exemptions
-![image](https://github.com/user-attachments/assets/5d89422e-c177-4517-9253-f995ab7fb3fe)
+![image](https://github.com/user-attachments/assets/0be45493-63b2-4198-be72-162ce90728ca)
 
 - Logs
-![image](https://github.com/user-attachments/assets/cebf8235-4f9d-4057-8771-28829d7ffddd)
-
+![image](https://github.com/user-attachments/assets/ae820ec6-198a-416d-bc07-7eb0b4a7d6ad)
 
 ## 📦 Installation
 
@@ -69,7 +68,8 @@ P:\Movie Roll\PlexMainPreRoll.mp4
 ```
 ![image](https://github.com/user-attachments/assets/df3f97d5-7a99-49d7-a6e1-598f7a702e37)
 3. Point dynamix to the folder (DO NOT Include /PlexMainPreRoll.mp4 here)
-![image](https://github.com/user-attachments/assets/54e32cd3-5b18-41bd-a996-eaed7d0865fd)
+![image](https://github.com/user-attachments/assets/0b29e67e-0622-4c78-9e63-46ea64b5233c)
+
 4. Set your default pre-roll and configure some season blocks
 ![image](https://github.com/user-attachments/assets/ffe4c4fe-5e6c-4622-b82c-2616c729976f)
 
