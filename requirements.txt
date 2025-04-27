@@ -1,3 +1,4 @@
+Flask
 plexapi
+PyYAML
 requests
-ttkbootstrap
