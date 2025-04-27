@@ -1,237 +1,88 @@
-# 🎥 DynamiX - Plex Recommendations Manager
+# dynamiX – Plex Recommendations Manager
 
-**DynamiX** is an automation tool for dynamically managing Plex collections pinning. It pins and unpins library collections based on configurable time blocks, ensuring fresh and relevant content is featured. As of 1.2.0, it is also able to rename files dynamically to handle seasonal pre-roll videos! This repository includes the Python script and its packaged `.exe` version for easier execution. It is important to note that CURRENTLY this tool does not actually create collections, that feature will be available soon!
+**Version**: 2.0.0
 
----
-
-Find the latest release of the .exe on the releases page https://github.com/TheImaginear/dynamiX/releases
-
-## 🚀 **Features**
-
-- **Dynamic Pinning**: Automatically pin collections based on time and day configurations.
-- **Exclusion Handling**: Avoid re-pinning the same collection for a configurable period.
-- **User Exemptions**: Allow manual exclusion of specific collections.
-- **GUI Control**: Includes an intuitive graphical interface for configuration and monitoring.
-- **Robust Logging**: Provides clear logs of actions and issues.
-- **Pre-Roll Seasonal Mngmt**: Allows the user to tell dynamiX where they store their pre-roll files and select seasonal blocks to play each one.
+A web-based automation tool for dynamically managing Plex collections pinning and seasonal pre-rolls.  
+Pins and unpins library collections based on configurable time blocks, seasonal schedules, manual overrides, and even handles pre-roll video management.
 
 ---
 
-## 🔧 **Requirements**
+## 🚀 Features
 
-- **Python 3.8+** *(for running the script)*
-- **Plex Media Server**
-- **Plex API Token** *(to authenticate and access the server)*
-- Required Libraries: `plexapi`, `requests`, and `ttkbootstrap`
+- **Web UI & PWA**  
+  Accessible at port `1166`, with offline support via service worker ([manifest.json](static/manifest.json)).  
+- **Multi-threaded Pinning**  
+  Speed up pinning loops by handling libraries in parallel.  
+- **Dynamic Pinning**  
+  Schedule by time blocks, seasonal/holiday blocks, and “always-pinned” collections.
+- **Pin by Library**  
+  Pin on any combination of home/shared home/recommended and optionally generate seperate sets of pins for home and library recommended.
+- **Pre-Roll Management**  
+  Automatically rename pre-roll videos based on date blocks (see `settings → Pre-Roll`).  
+- **Exclusions & Exemptions**  
+  Avoid re-pinning recently pinned items and manually exempt specific collections.  
+- **Quick-Add & Manual Blocks**  
+  Fast holiday presets or fully custom date ranges for pinning and pre-rolls (managed seperate).  
+- **HTTP Basic Auth**  
+  Optional for secure local or public deployments.  
+- **Update Notifications**  
+  Checks GitHub for new releases (auto-update is stubbed out for now).
 
 ---
 
-## 🛠️ **Installation**
+## Preview
 
-### Option 1: Run the `.exe` File (Windows Only Right Now) *(Recommended for Non-Developers)*
-1. Download the latest `script.exe` from the [Releases Page](https://github.com/TheImaginear/DynamiX/releases).
-2. Place it in a directory of your choice.
-3. Double-click the `script.exe` to launch the application.
+- All-New Dashboard
+![image](https://github.com/user-attachments/assets/1f252f03-b878-499f-b80b-d0b587319559)
 
-### Option 2: Run the Python Script
-1. Clone this repository:
+- Settings
+![image](https://github.com/user-attachments/assets/be7afe44-0824-4d40-9051-b76d1bed0e7b)
+![image](https://github.com/user-attachments/assets/22376e33-8a7d-4675-86f9-34c6984ca5d1)
+![image](https://github.com/user-attachments/assets/f4a3fd86-073c-42dc-91b7-85f4e9532a7c)
+![image](https://github.com/user-attachments/assets/b8f9e54b-8089-4775-a606-c2f8133e7102)
+![image](https://github.com/user-attachments/assets/0e4247d0-af64-48b7-9a34-ec7eb8300db4)
+
+- Exclusions
+![image](https://github.com/user-attachments/assets/d0a4583c-f064-4f2b-a637-c689d50893d4)
+
+- Exemptions
+![image](https://github.com/user-attachments/assets/5d89422e-c177-4517-9253-f995ab7fb3fe)
+
+- Logs
+![image](https://github.com/user-attachments/assets/cebf8235-4f9d-4057-8771-28829d7ffddd)
+
+
+## 📦 Installation
+
+### Prerequisites
+
+- Python 3.8+  
+- Plex server URL & Token ([How to find your token][plex-token])  
+
+### From the Releases Page ###
+
+1. **Get the Latest Release**
+   - https://github.com/TheImaginear/dynamiX/releases/latest
+2. **Unzip the package**
+3. **Open a command prompt and navigate to the dynamiX folder**
+4. **Run the main script to start**
    ```bash
-   git clone https://github.com/YourUsername/DynamiX.git
-   cd DynamiX
-   ```
-2. Install the required dependencies:
+   pip install -r requirements.txt 
+5. **Run the main script to start**
    ```bash
-   pip install -r requirements.txt
-   ```
-3. Run the script:
-   ```bash
-   python src/script.py
-   ```
+   py dynamixmain.py
+6. **Visit http://127.0.0.1:1166/**
 
-### Option 3: Offical Docker Image:
-1a. Grab the latest docker image:
-   ```bash
-   docker pull clharrel/dynamix:latest
-   ```
-1b. Grab it from the Repo Page:
-(https://hub.docker.com/repository/docker/clharrel/dynamix/general)
+### Through Docker ###
 
-2. Configure the config.json file with your preferences:
-I highly recommend using the windows application with GUI to generate your config files! The docker build is the exact functions of the application version without the gui and an automatic run on start!
-
-
----
-
-## 📃 **Configuration**
-
-### Initial Setup
-Upon the first run, the application will prompt you to fill in required configuration details:
-
-- **Plex URL**: The address of your Plex Media Server (e.g., `http://<server_ip>:32400`).
-- **Plex Token**: A valid Plex API Token (refer to instructions below).
-- **Libraries**: Comma-separated list of Plex libraries to manage (e.g., `Movies, TV Shows`).
-- **Pinning Interval**: How often the program pins/unpins collections (in minutes).
-
-### Configuration Files
-The following files are generated and updated dynamically:
-
-- `config.json` - Stores the main configuration settings.
-- `used_collections.json` - Tracks recently pinned collections to avoid immediate repeats.
-- `user_exemptions.json` - Maintains a list of collections manually exempted by the user.
-
-### Optional: Pre-Roll Manager
-If you would like to manage your existing pre-roll videos
-
-- In the plex settings, under extras, change the movie pre-roll video to the path to your folder, ending with PlexMainPreRoll.mp4 (Example path P:\Movie Roll\PlexMainPreRoll.mp4)
-- Configure the default pre-roll in the manager tab of dynamiX
-- Add Seasonal Blocks BEFORE RUNNING. Attempting to adjust an already selected video's time block will require either a manual file rename or deleting the block first and re-running.
-
----
-
-## 💡 **Finding Your Plex Token**
-
-To access the Plex API, you need a valid token. Follow these steps to retrieve it:
-
-1. Open the Plex Web App and log in to your Plex server.
-2. Select any media item (e.g., a movie or TV episode).
-3. Click the `Get Info` button (3-dot menu) and choose `View XML`.
-4. A new tab will open. In the URL, find the part after `X-Plex-Token=`.
-5. Copy the token and paste it into the configuration.
-
----
-
-## 💥 **Usage**
-
-1. Launch the application (`script.exe` or `python src/script.py`).
-2. Use the intuitive GUI to:
-   - Configure Plex server details and dynamic pinning settings.
-   - Manage exclusions and user exemptions.
-   - Add Seasonal Pinning Rules (V1.1+)
-   - Manage Pre-Roll Video (V1.2+)
-   - View activity logs in real-time.
-3. Start the automation process by clicking **"Run Main Function"** on the **Logs** tab.
-
-The running program:
-
-![image](https://github.com/user-attachments/assets/1b07a6b4-261e-4992-a429-da4ce1087612)
-![image](https://github.com/user-attachments/assets/db79923e-207c-43f2-9946-09174cdede8c)
-
-Dynamic Exclusions list updated in the GUI:
-
-![image](https://github.com/user-attachments/assets/4e427525-67ae-4980-8ce5-17f29949ffa8)
-
-User-Set Exemptions:
-
-![image](https://github.com/user-attachments/assets/6f8784e0-b25f-47e2-ac28-3ca1b1d16b1a)
-
-Server Configuration Tab:
-
-![image](https://github.com/user-attachments/assets/32ba42ac-e067-441b-ac74-16babe8cb33b)
-
-Settings Tab:
-
-![image](https://github.com/user-attachments/assets/6d81562f-0151-43ae-9354-6cfbdbff3147)
-![image](https://github.com/user-attachments/assets/d98b9b42-3c26-4f81-84e6-6a698c0b5b96)
-![image](https://github.com/user-attachments/assets/2532c5cf-42c2-44ea-bf2f-7143a6659f89)
-![image](https://github.com/user-attachments/assets/4276bca0-c1ed-45ff-8b1b-336f70b8a9d1)
-
-Pre-Roll Manager:
-
-![image](https://github.com/user-attachments/assets/ad199c8e-b6c0-47c9-a546-8a8c3fb9a252)
-![image](https://github.com/user-attachments/assets/1532b287-7d24-41f2-859f-81e210df45dd)
-![image](https://github.com/user-attachments/assets/347da460-8ce7-4138-b825-eec17b0dc890)
-![image](https://github.com/user-attachments/assets/8549cfdd-e6f3-4ada-86a0-abd776a53b09)
-
-Automatically Updates Home Screen, Shared Home, and/or library screen:
-![image](https://github.com/user-attachments/assets/27fbcac7-c905-47bd-adf3-f9606d6af19c)
-
-
-
-### Tabs Overview
-| **Tab**              | **Description**                                                                       |
-|----------------------|---------------------------------------------------------------------------------------|
-| **Plex Server**      | Configure Plex server URL and API token. Display server name for confirmation.       |
-| **Settings**         | Configure libraries, time blocks, season blocks, and pinning settings.                             |
-| **Logs**             | View real-time activity logs for debugging and monitoring.                           |
-| **Dynamic Exclusions** | Manage collections that are temporarily excluded after being pinned.                |
-| **User Exemptions**  | Manually exempt specific collections from being pinned.                              |
-| **Pre-Roll Manager**  | Handle Pre-Roll Videos by date blocks                                               |
-
----
-
-## 💰 **Features in Detail**
-
-### Dynamic Time Blocks
-Customize the number of collections pinned during specific times of the day. For example:
-| **Day**       | **Time Block** | **Start Time** | **End Time** | **Limit** |
-|---------------|---------------|---------------|-------------|-----------|
-| Monday        | Morning       | 06:00         | 12:00       | 3         |
-| Monday        | Evening       | 18:00         | 22:00       | 5         |
-
-### Exclusion and Reset
-- Collections that are pinned are excluded for a configurable number of days.
-- If not enough valid collections are found, the exclusion list can be reset.
-
-### User Exemptions
-Manually exempt specific collections from being pinned using the **User Exemptions** tab.
-
----
-
-## 📅 **Changelog**
-
-### **v1.0.0** - *2024-06-01*
-- **Initial Release**
-   - Introduced dynamic pinning of Plex collections.
-   - Added exclusion handling and user exemption management.
-   - Provided a GUI for configuration and log monitoring.
-
----
-
-## 📚 **Dependencies**
-
-Required libraries are listed in `requirements.txt`:
-
-```plaintext
-plexapi
-requests
-ttkbootstrap
-```
-
-Install them with:
+**Get the Latest Release**
 ```bash
-pip install -r requirements.txt
-```
+docker pull clharrel/dynamix:latest
 
----
-
-## 📈 **Contributing**
-
-We welcome contributions! Please follow these steps:
-
-1. Fork the repository.
-2. Create a feature branch:
-   ```bash
-   git checkout -b feature-branch-name
-   ```
-3. Commit your changes with descriptive messages.
-4. Push your changes:
-   ```bash
-   git push origin feature-branch-name
-   ```
-5. Open a Pull Request with details about your changes.
-
-See the full contributing guidelines in [CONTRIBUTING.md](CONTRIBUTING.md).
-
----
-
-## 🔓 **License**
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-## 📢 **Support**
-
-If you encounter issues, please open a ticket in the [Issues](https://github.com/TheImaginear/DynamiX/issues) section.
-
-For general questions and feedback, feel free to reach out!
+docker run -d --name dynamix -p 1166:1166 `
+  -v "${PWD}\config.json:/app/config.json" `
+  -v "${PWD}\user_exemptions.json:/app/user_exemptions.json" `
+  -v "${PWD}\used_collections.json:/app/used_collections.json" `
+  -v "${PWD}\run_state.json:/app/run_state.json" `
+  -v "${PWD}\logs:/app/logs" `
+  clharrel/dynamix:latest
