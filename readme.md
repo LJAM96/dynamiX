@@ -59,6 +59,20 @@ Pins and unpins library collections based on configurable time blocks, seasonal 
 - Python 3.8+  
 - Plex server URL & Token ([How to find your token][plex-token])  
 
+### Setting Up Pre-Rolls ###
+
+1. Make sure all of your Pre-Rolls are in one folder with no other media
+![image](https://github.com/user-attachments/assets/e7dc4b4f-a094-4d1d-8a89-e1712740004a)
+2. Point Plex to that path ending with /PlexMainPreRoll.mp4 For Example:
+```bash
+P:\Movie Roll\PlexMainPreRoll.mp4
+```
+![image](https://github.com/user-attachments/assets/df3f97d5-7a99-49d7-a6e1-598f7a702e37)
+3. Point dynamix to the folder (DO NOT Include /PlexMainPreRoll.mp4 here)
+![image](https://github.com/user-attachments/assets/54e32cd3-5b18-41bd-a996-eaed7d0865fd)
+4. Set your default pre-roll and configure some season blocks
+![image](https://github.com/user-attachments/assets/ffe4c4fe-5e6c-4622-b82c-2616c729976f)
+
 ### From the Releases Page ###
 
 1. **Get the Latest Release**
