@@ -1,0 +1,26 @@
+{
+    "plex_url": "http://localhost:32400",
+    "plex_token": "",
+    "libraries": [],
+    "pinning_interval": "",
+    "exclusion_days": "",
+    "minimum_items": "",
+    "always_pin_new_episodes": false,
+    "pinning_targets": {
+        "library_recommended": false,
+        "home": false,
+        "shared_home": false
+    },
+    "separate_pinning": false,
+    "default_limits": {},
+    "libraries_settings": {},
+    "time_blocks": [],
+    "seasonal_blocks": [],
+    "pinned_collections": [],
+    "pre_roll_folder": "",
+    "preroll_blocks": [],
+    "default_preroll_filename": "",
+    "auth_enabled": false,
+    "auth_username": "",
+    "auth_password": ""
+}

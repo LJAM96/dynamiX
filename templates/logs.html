@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Logs{% endblock %}
+{% block content %}
+  <h1 class="mb-3">Logs</h1>
+  <div class="border p-4 mb-5 bg-secondary rounded">
+    <div class="btn-group mb-3">
+      <button type="button"
+              class="btn btn-outline-light{% if level=='base' %} active{% endif %}"
+              data-level="base">
+        Base
+      </button>
+      <button type="button"
+              class="btn btn-outline-light{% if level=='debug' %} active{% endif %}"
+              data-level="debug">
+        Debug
+      </button>
+    </div>
+    <pre id="logs-container"
+         class="border bg-dark text-light p-3"
+         style="height:400px; overflow-y:auto; font-family: monospace;">
+{{ logs|join('\n') }}
+    </pre>
+  </div>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    let level = "{{ level }}";
+    const container = document.getElementById('logs-container');
+
+    function fetchLogs() {
+      fetch(`/logs_data?level=${level}`)
+        .then(res => res.json())
+        .then(data => {
+          const atBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 5;
+          container.textContent = data.logs.join('\n');
+          if (atBottom) container.scrollTop = container.scrollHeight;
+        })
+        .catch(err => console.error('Failed to fetch logs:', err));
+    }
+
+    // Initial load + polling
+    fetchLogs();
+    setInterval(fetchLogs, 2000);
+
+    // Level‐toggle buttons
+    document.querySelectorAll('.btn-group [data-level]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.btn-group .active')
+                .forEach(activeBtn => activeBtn.classList.remove('active'));
+        btn.classList.add('active');
+        level = btn.getAttribute('data-level');
+        fetchLogs();
+      });
+    });
+  });
+  </script>
+{% endblock %}

@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% block title %}Pre-Roll Manager{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+
+  <!-- Page Title -->
+  <h1 class="mb-4">Pre-Roll Manager</h1>
+
+  <!-- Flash Messages (one-time) -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, text in messages %}
+        <div class="alert alert-{{ category }} mb-4">{{ text }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <!-- Current Active Pre-Roll & One-Time Run -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h5>Current Active Pre-Roll:</h5>
+      <p class="mb-0"><strong>{{ current_roll_filename or 'None' }}</strong></p>
+    </div>
+    <form method="post" action="{{ url_for('run_preroll_once') }}">
+      <button type="submit" class="btn btn-outline-primary">
+        <i class="bi bi-play-fill me-1"></i> Run Pre-Roll Now
+      </button>
+    </form>
+  </div>
+
+  <div class="row gy-4">
+    <!-- LEFT COLUMN -->
+    <div class="col-lg-6 d-flex flex-column gap-4">
+      <!-- Quick-Add Holiday -->
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <i class="bi bi-calendar-event me-1"></i> Quick-Add Holiday
+        </div>
+        <div class="card-body">
+          <form method="post" action="{{ url_for('add_preroll_block') }}" class="row g-3 align-items-end">
+            <div class="col-sm-6">
+              <label class="form-label">Holiday</label>
+              <select id="quickHolidaySelect" name="name" class="form-select" required>
+                <option disabled selected>Choose…</option>
+                {% for db in quick_defaults %}
+                  <option value="{{ db.name }}" data-start="{{ db.start_md }}" data-end="{{ db.end_md }}">
+                    {{ db.name }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-sm-3">
+              <label class="form-label">Start (MM-DD)</label>
+              <input id="qa_start_date" name="start_date" type="text" class="form-control" placeholder="MM-DD" readonly required>
+            </div>
+            <div class="col-sm-3">
+              <label class="form-label">End (MM-DD)</label>
+              <input id="qa_end_date" name="end_date" type="text" class="form-control" placeholder="MM-DD" readonly required>
+            </div>
+            <div class="col-sm-8">
+              <label class="form-label">Filename</label>
+              <select name="filename" class="form-select" required>
+                {% for f in files %}<option value="{{ f }}">{{ f }}</option>{% endfor %}
+              </select>
+            </div>
+            <div class="col-sm-4 text-end">
+              <button type="submit" class="btn btn-success">
+                <i class="bi bi-plus-lg me-1"></i> Add Holiday
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Manual Add Block -->
+      <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+          <i class="bi bi-file-earmark-plus me-1"></i> Add Pre-Roll Block
+        </div>
+        <div class="card-body">
+          <form method="post" action="{{ url_for('add_preroll_block') }}" class="row g-3 align-items-end">
+            <div class="col-sm-4">
+              <label class="form-label">Name</label>
+              <input name="name" class="form-control" required>
+            </div>
+            <div class="col-sm-2">
+              <label class="form-label">Start MM-DD</label>
+              <input name="start_date" class="form-control" required>
+            </div>
+            <div class="col-sm-2">
+              <label class="form-label">End MM-DD</label>
+              <input name="end_date" class="form-control" required>
+            </div>
+            <div class="col-sm-4">
+              <label class="form-label">Filename</label>
+              <select name="filename" class="form-select" required>
+                {% for f in files %}<option value="{{ f }}">{{ f }}</option>{% endfor %}
+              </select>
+            </div>
+            <div class="col-sm-12 text-end">
+              <button type="submit" class="btn btn-dark">
+                <i class="bi bi-plus me-1"></i> Add Block
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="col-lg-6 d-flex flex-column gap-4">
+      <!-- Default Pre-Roll -->
+      <div class="card shadow-sm">
+        <div class="card-header bg-secondary text-white">
+          <i class="bi bi-pin-angle-fill me-1"></i> Default Pre-Roll
+        </div>
+        <div class="card-body">
+          <form method="post" action="{{ url_for('set_default_preroll') }}" class="row g-3 align-items-end">
+            <div class="col-sm-8">
+              <label class="form-label">Select Default</label>
+              <select name="default_preroll_filename" class="form-select" required>
+                <option value="" disabled {{ not default_preroll_filename and 'selected' }}>Choose…</option>
+                {% for f in files %}<option value="{{ f }}" {% if f == default_preroll_filename %}selected{% endif %}>{{ f }}</option>{% endfor %}
+              </select>
+            </div>
+            <div class="col-sm-4 text-end">
+              <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save me-1"></i> Save Default
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Existing Blocks Table -->
+      <div class="flex-grow-1 d-flex flex-column">
+        <div class="card shadow-sm h-100">
+          <div class="card-header bg-dark text-white">
+            <i class="bi bi-list-ul me-1"></i> Existing Pre-Roll Blocks
+          </div>
+          <div class="card-body p-0 overflow-auto">
+            <table class="table table-dark table-striped mb-0">
+              <thead>
+                <tr>
+                  <th>Name</th><th>Start</th><th>End</th><th>Filename</th><th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for b in blocks %}
+                <tr>
+                  <td>{{ b.name }}</td>
+                  <td>{{ b.start_date }}</td>
+                  <td>{{ b.end_date }}</td>
+                  <td>{{ b.filename }}</td>
+                  <td class="text-center">
+                    <form method="post" action="{{ url_for('delete_preroll_block') }}">
+                      <input type="hidden" name="name" value="{{ b.name }}">
+                      <button class="btn btn-sm btn-outline-danger">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const select = document.getElementById('quickHolidaySelect');
+  const start  = document.getElementById('qa_start_date');
+  const end    = document.getElementById('qa_end_date');
+  select.addEventListener('change', () => {
+    const opt = select.selectedOptions[0];
+    start.value = opt.dataset.start;
+    end.value   = opt.dataset.end;
+  });
+});
+</script>
+{% endblock %}

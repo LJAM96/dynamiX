@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Kometa Collections{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+  <h1 class="mb-3">Generate <code>config.yml</code> by Library</h1>
+
+  {% if message %}
+    <div class="alert alert-success">{{ message|safe }}</div>
+  {% endif %}
+
+  <form method="post" action="{{ url_for('web_kometa_collections') }}">
+    {% for lib in libraries %}
+      <h3 class="mt-4">{{ lib }}</h3>
+      <div class="row">
+        {% for key in defaults_by_library[lib] %}
+          <div class="col-md-4 mb-3">
+            <div class="form-check">
+              <input
+                class="form-check-input default-checkbox"
+                type="checkbox"
+                name="defaults"
+                value="{{ lib }}|{{ key }}"
+                id="def_{{ lib|replace(' ','_') }}__{{ key }}"
+                data-default="{{ lib }}__{{ key }}"
+              >
+              <label
+                class="form-check-label"
+                for="def_{{ lib|replace(' ','_') }}__{{ key }}"
+              >{{ key }}</label>
+            </div>
+
+            <div
+              class="template-vars ms-4 mt-2"
+              data-default="{{ lib }}__{{ key }}"
+              style="display:none;"
+            >
+              {% for var in default_vars[key] %}
+                <div class="mb-2">
+                  <label
+                    class="form-label"
+                    for="{{ lib }}__{{ key }}__{{ var }}"
+                  >{{ var }}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="{{ lib }}__{{ key }}__{{ var }}"
+                    id="{{ lib }}__{{ key }}__{{ var }}"
+                    placeholder="{{ var }} (optional)"
+                  >
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+
+    <div class="row mt-4">
+      <div class="col-md-8">
+        <label for="outputFolder" class="form-label">Output folder</label>
+        <input
+          type="text"
+          name="output_folder"
+          id="outputFolder"
+          class="form-control"
+          placeholder="/path/to/your/folder"
+          required
+        >
+      </div>
+      <div class="col-md-4 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary w-100">
+          <i class="bi bi-file-earmark-arrow-down me-1"></i> Generate config.yml
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.default-checkbox').forEach(cb => {
+    const def = cb.dataset.default;
+    const varsEl = document.querySelector(`.template-vars[data-default="${def}"]`);
+
+    function toggle() {
+      varsEl.style.display = cb.checked ? 'block' : 'none';
+    }
+
+    cb.addEventListener('change', toggle);
+    toggle();
+  });
+});
+</script>
+{% endblock %}

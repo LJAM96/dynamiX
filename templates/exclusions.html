@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Exclusions{% endblock %}
+{% block content %}
+  <h1 class="mb-3">Dynamic Exclusions</h1>
+
+  <form method="post" action="{{ url_for('reset_exclusions') }}" class="mb-4">
+    <button class="btn btn-warning">Reset All Exclusions</button>
+  </form>
+
+  <table class="table table-dark table-striped table-sm">
+    <thead>
+      <tr><th>Title</th><th>Expires</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+      {% for title, date in exclusions.items() %}
+      <tr>
+        <td>{{ title }}</td>
+        <td>{{ date }}</td>
+        <td>
+          <form method="post" action="{{ url_for('delete_exclusion') }}">
+            <input type="hidden" name="title" value="{{ title }}">
+            <button class="btn btn-sm btn-danger">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
