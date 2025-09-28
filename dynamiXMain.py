@@ -1522,9 +1522,9 @@ def web_settings():
         cfg['plex_url']  = request.form['plex_url']
         cfg['plex_token']= request.form['plex_token']
         cfg['libraries']= [l.strip() for l in request.form['libraries'].split(',') if l.strip()]
-        cfg['pinning_interval']    = int(request.form['pinning_interval'])
-        cfg['exclusion_days']      = int(request.form['exclusion_days'])
-        cfg['minimum_items']       = int(request.form['minimum_items'])
+        cfg['pinning_interval']    = int(request.form.get('pinning_interval', '30') or '30')
+        cfg['exclusion_days']      = int(request.form.get('exclusion_days', '3') or '3')
+        cfg['minimum_items']       = int(request.form.get('minimum_items', '1') or '1')
         cfg['always_pin_new_episodes'] = ('always_pin' in request.form)
         cfg['pre_roll_folder'] = request.form.get('pre_roll_folder', '').strip()
         cfg['auth_enabled'] = ('auth_enabled' in request.form)
@@ -1544,7 +1544,8 @@ def web_settings():
         for lib in cfg['libraries']:
             key = f"limit_{lib}"
             if key in request.form:
-                cfg['default_limits'][lib] = int(request.form[key])
+                value = request.form[key].strip()
+                cfg['default_limits'][lib] = int(value) if value else 5
 
         save_config(cfg)
         return redirect(url_for('web_settings'))
